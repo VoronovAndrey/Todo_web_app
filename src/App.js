@@ -29,7 +29,13 @@ function App() {
       {
          id: 21341415,
          name: 'List2',
-         listData: []
+         listData: [
+            {
+               id: 4,
+               text: '4asdsasf afgaads',
+               value: false
+            }
+         ]
       }
       
       
@@ -51,6 +57,22 @@ function App() {
    const listName_ref = React.useRef('')
    const [mainPage, setMainPage] = React.useState(true)
    const [currentListData, setCurrentListData] = React.useState(null)
+
+   const setDataHandler = (new_data, idx) => {
+      let tmp = [...data]
+      tmp[idx].listData = new_data
+      setData([...tmp])
+
+   }
+
+   React.useEffect(() => {
+      console.log(data);
+   }, [data])
+   React.useEffect(() => {
+      let storage = localStorage.getItem('stor')
+      console.log(storage);
+   }, [])
+
 
   return (
     <div className="app__container">
@@ -77,7 +99,7 @@ function App() {
                  {data.map((list, index) => {
                     return <ListItem data={list} key={index} 
                                        click={() => {
-                                          setCurrentListData(list.listData)
+                                          setCurrentListData(index)
                                           setMainPage(false)
                                        }}/>
                  })}
@@ -85,10 +107,15 @@ function App() {
            )}
            {mainPage === false && (
               <>
-               <TodoList data={currentListData} back={() => {
-                  setCurrentListData(null)
-                  setMainPage(true)
-               }}/>
+               <TodoList data={data[currentListData].listData} 
+                        back={() => {
+                           setCurrentListData(null)
+                           setMainPage(true)
+                        }}
+                        setDataHandler={setDataHandler}
+                        dataIndex={currentListData}
+                        
+               />
               </>
            )}
          

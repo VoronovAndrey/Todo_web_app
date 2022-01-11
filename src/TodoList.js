@@ -4,7 +4,7 @@ import TodoItem from './components/TodoItem';
 import './style.css'
 
 function TodoList(props) {
-   const [data, setData] = React.useState([]);
+   const [data, setData] = React.useState(null);
    const checkHandle = (idx) => {
       let tmp = [...data]
       tmp[idx].value = !tmp[idx].value
@@ -27,14 +27,16 @@ function TodoList(props) {
       setData([...data, tmp])
    }
    React.useEffect(() => {
-      setData(props.data)
-   }, [])
-   React.useEffect(() => {
-      console.log(data);
-      return () => {
-      }
+      if (data) props.setDataHandler(data, props.dataIndex)
+      // console.log(data);
    }, [data])
+   React.useEffect(() => {
+      if (!data) setData(props.data)
+   }, [])
 
+   if (!data) {
+      return <p>Loading</p>
+   } 
   return (
     <div>
        <button onClick={()=> props.back()}>← Back</button>
