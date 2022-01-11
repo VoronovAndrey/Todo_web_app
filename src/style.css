@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.todo_item__wrap {
+    display: flex;
+    align-items: center;
+
+}
+
+.todo_item__wrap p {
+    margin-left: 5px;
+}
+
+.todo_item__remove_btn {
+    margin-left: 10px;
+    display: none;
+}
+.todo_item__wrap:hover > .todo_item__remove_btn{
+    display: inline-block;
+}
+.app__container {
+    display: flex;
+    height: 100vh;
+}
+.menu__container {
+    width: 200px;
+    height: 100%;
+    background: rgb(91, 74, 187);
+}
+.main_layout__container {
+    padding: 10px;
+}
