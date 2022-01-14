@@ -32,6 +32,7 @@ function TodoList(props) {
    }, [data])
    React.useEffect(() => {
       if (!data) setData(props.data)
+      console.log('data comp', props.data);
    }, [])
 
    if (!data) {

@@ -36,13 +36,10 @@ function App() {
                idx = i;
             }
          }
-         tmp = {
-            ...tmp,
-            name: title,
-            color: color
-         }
+         tmp[0].name = title;
+         tmp[0].color = color;
          let tmp_data = [...data]
-         tmp_data[idx] = tmp
+         tmp_data[idx] = tmp[0]
          updDataHandler(tmp_data)
       } else {
          window.alert('Name is empty')
