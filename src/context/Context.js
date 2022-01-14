@@ -4,7 +4,9 @@ export const StoreManager = React.createContext()
 
 
 export const StoreProvider = ({children}) => {
-    const [data, setData] = React.useState(null);
+   const [data, setData] = React.useState(null);
+   const colors = ['#01C7AE', '#F34B34', '#E6C618', '#EDE6E6']
+
      const getData = () => {
          let storage = window.localStorage.getItem('store')
          if (!storage) {
@@ -12,6 +14,7 @@ export const StoreProvider = ({children}) => {
                 {
                    id: 21341412,
                    name: 'List1',
+                   color: '#01C7AE',
                    listData: [
                       {
                          id: 1,
@@ -33,6 +36,7 @@ export const StoreProvider = ({children}) => {
                 {
                    id: 21341415,
                    name: 'List2',
+                   color: '#01C7AE',
                    listData: [
                       {
                          id: 4,
@@ -62,7 +66,8 @@ export const StoreProvider = ({children}) => {
 
     return (
         <StoreManager.Provider value={{
-            data: {data, updDataHandler}
+            data: {data, updDataHandler},
+            colors: {colors}
         }}>
             {children}
         </StoreManager.Provider>

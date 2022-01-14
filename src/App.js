@@ -1,6 +1,7 @@
 import * as React from 'react'
 import ListItem from './components/ListItem';
 import Menu from './components/Menu';
+import NewListModal from './components/NewListModal';
 import { StoreManager } from './context/Context';
 import './style.css'
 import TodoList from './TodoList';
@@ -8,24 +9,25 @@ import TodoList from './TodoList';
 
 function App() {
    const { data: { data, updDataHandler } } = React.useContext(StoreManager)
-   
 
-   const addNewList = () => {
-      if (listName_ref.current.value !== '') {
+   const [showModal, setShowModal] = React.useState(false)   
+
+   const addNewList = (title, color) => {
+      if (title !== '') {
          let new_item = {
             id: Date.now(),
-            name: listName_ref.current.value,
+            name: title,
+            color: color,
             listData: []
          }
          updDataHandler([...data, new_item])
-         listName_ref.current.value = ''
+         // listName_ref.current.value = ''
       } else {
          window.alert('Name is empty')
       }
    }
-   const listName_ref = React.useRef('')
    const [mainPage, setMainPage] = React.useState(true)
-   const [currentListData, setCurrentListData] = React.useState(null)
+   const [CurrentListIndex, setCurrentListIndex] = React.useState(null)
 
    const setDataHandler = (new_data, idx) => {
       let tmp = [...data]
@@ -33,12 +35,13 @@ function App() {
       updDataHandler([...tmp])
 
    }
+
    React.useEffect(() => {
       console.log(data);
    }, [data])
    React.useEffect(() => {
-      console.log('currentListData', currentListData);
-   }, [currentListData])
+      console.log('CurrentListIndex', CurrentListIndex);
+   }, [CurrentListIndex])
 
 
    if (!data) {
@@ -47,47 +50,62 @@ function App() {
    return (
       <div className="app__container">
          <Menu click={(index) => {
-                           if ( index  !== currentListData ) {
+                           if ( index  !== CurrentListIndex ) {
                               if (index !== null) {
-                                 setCurrentListData(null)
+                                 setCurrentListIndex(null)
                                  setTimeout(() => {
-                                    setCurrentListData(index)
+                                    setCurrentListIndex(index)
                                  }, 10);
                                  setMainPage(false)
                               } else {
-                                 setCurrentListData(null)
+                                 setCurrentListIndex(null)
                                  setMainPage(true)
                               }
                            }
-                        }}/>
+                        }}
+               addClick={() => setShowModal(true)}
+                        />
          <div className='main_layout__container'>
+            {showModal && (
+               <NewListModal
+                  addNewList={addNewList}
+                  closeModal={() => setShowModal(false)}
+               />
+            )}
 
 
             {/* <TodoList data={data} /> */}
             {mainPage && (
                <>
                   <div>
-                     <input ref={listName_ref} placeholder='Name'></input>
-                     <button onClick={addNewList}>Add new list</button>
+                     {/* <input ref={listName_ref} placeholder='Name'></input> */}
+                     <button onClick={() => setShowModal(true)}
+                        className='btn__create_new_list'
+                     >
+                        <span>
+                           <i className="fas fa-plus"></i>
+                        </span> Create new list</button>
                   </div>
-                  {data.map((list, index) => {
-                     return <ListItem data={list} key={index}
-                        click={() => {
-                           setCurrentListData(index)
-                           setMainPage(false)
-                        }} />
-                  })}
+                  <div className='list__main__container'>
+                     {data.map((list, index) => {
+                        return <ListItem data={list} key={index}
+                           click={() => {
+                              setCurrentListIndex(index)
+                              setMainPage(false)
+                           }} />
+                     })}
+                  </div>
                </>
             )}
-            {(mainPage === false) && (currentListData !== null) && (
+            {(mainPage === false) && (CurrentListIndex !== null) && (
                <>
-                  <TodoList data={data[currentListData].listData}
+                  <TodoList data={data[CurrentListIndex].listData}
                      back={() => {
-                        setCurrentListData(null)
+                        setCurrentListIndex(null)
                         setMainPage(true)
                      }}
                      setDataHandler={setDataHandler}
-                     dataIndex={currentListData}
+                     dataIndex={CurrentListIndex}
 
                   />
                </>
