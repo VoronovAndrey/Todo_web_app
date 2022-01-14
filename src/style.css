@@ -202,9 +202,12 @@ body {
 .list__item__wrapper:hover .list__item__control {
     display: block;
 }
+.list__item__control span {
+    opacity: 0.3;
+}
 
 .list__item__control span:hover {
-    opacity: 0.8;
+    opacity: 1;
 }
 
 .bookmark {

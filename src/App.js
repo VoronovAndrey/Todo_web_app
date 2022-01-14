@@ -10,18 +10,40 @@ import TodoList from './TodoList';
 function App() {
    const { data: { data, updDataHandler } } = React.useContext(StoreManager)
 
-   const [showModal, setShowModal] = React.useState(false)   
+   const [showModal, setShowModal] = React.useState(false)  
 
    const addNewList = (title, color) => {
       if (title !== '') {
          let new_item = {
-            id: Date.now(),
+            id: `List_${Date.now()}`,
             name: title,
             color: color,
             listData: []
          }
          updDataHandler([...data, new_item])
          // listName_ref.current.value = ''
+      } else {
+         window.alert('Name is empty')
+      }
+   }
+   const changeList = ( title, color, listId) => {
+      if (title !== '') {
+         let tmp = []
+         let idx = 0
+         for ( let i = 0; i < data.length; i++ ) {
+            if (data[i].id === listId) {
+               tmp.push(data[i])
+               idx = i;
+            }
+         }
+         tmp = {
+            ...tmp,
+            name: title,
+            color: color
+         }
+         let tmp_data = [...data]
+         tmp_data[idx] = tmp
+         updDataHandler(tmp_data)
       } else {
          window.alert('Name is empty')
       }
@@ -33,8 +55,21 @@ function App() {
       let tmp = [...data]
       tmp[idx].listData = new_data
       updDataHandler([...tmp])
-
    }
+
+   const deleteClickHandler = (index) => {
+      let tmp = [...data]
+      tmp.splice(index, 1)
+      updDataHandler([...tmp])
+   }
+
+   // const [editModal, setEditModal] = React.useState(false)
+   const [editIndex, setEditIndex] = React.useState(null)
+   // const editClickHandler = (index) => {
+      
+   // }
+
+
 
    React.useEffect(() => {
       console.log(data);
@@ -68,10 +103,21 @@ function App() {
          <div className='main_layout__container'>
             {showModal && (
                <NewListModal
-                  addNewList={addNewList}
+                  isEdit={false}
+                  okClick={addNewList}
                   closeModal={() => setShowModal(false)}
                />
             )}
+
+            { editIndex !== null && (
+                  <NewListModal
+                     isEdit={true}
+                     okClick={changeList}
+                     editData={data[editIndex]}
+                     closeModal={() => setEditIndex(null)}
+                  />
+               )
+            }
 
 
             {/* <TodoList data={data} /> */}
@@ -92,7 +138,10 @@ function App() {
                            click={() => {
                               setCurrentListIndex(index)
                               setMainPage(false)
-                           }} />
+                           }} 
+                           deletClick={() => deleteClickHandler(index)}
+                           editClick={() => setEditIndex(index)}
+                           />
                      })}
                   </div>
                </>

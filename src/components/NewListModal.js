@@ -5,21 +5,34 @@ function NewListModal(props) {
    const listName_ref = React.useRef('')
    const {colors : {colors}} = React.useContext(StoreManager)
    const [currentColor, setCurrentColor] = React.useState(0)
-   const addClickHandler = () => {
-        // props.addNewList(title, color)
+   const okClickHandler = () => {
         let title = listName_ref.current.value
         if ( title.trim() !== '' ) {
-            props.addNewList(title, colors[currentColor])
+            if (props.isEdit) {
+                props.okClick(title, colors[currentColor], props.editData.id)
+            } else {
+                props.okClick(title, colors[currentColor])
+            }
             listName_ref.current.value = ''
             props.closeModal()
         }
    }
+   React.useEffect(()=>{
+    listName_ref.current.value = props.isEdit ? props.editData.name : '' ;
+    // props.editData.color
+    if (props.isEdit) {
+        let cur_color = colors.indexOf(props.editData.color)
+        setCurrentColor(cur_color)
+    }
+   }, [])
 
     return (
         <>
             <div className='overlay' onClick={props.closeModal}>
                 <div className='modal__body' onClick={e => e.stopPropagation()}>
-                    <h2 style={{textAlign: 'center'}}>New list</h2>
+                    <h2 style={{textAlign: 'center'}}>
+                        {props.isEdit ? 'Edit' : 'New'} list
+                    </h2>
                     <input ref={listName_ref} placeholder='Title' className='modal__input'></input>
                     <div className='df aic colors__container'>
                         <span>Color:</span>
@@ -41,8 +54,10 @@ function NewListModal(props) {
                      <div className='modal__btn__container df aic'>
                         <button 
                             className='modal__btn modal__btn_add' 
-                            onClick={() => addClickHandler()}
-                        >Add</button>
+                            onClick={() => okClickHandler()}
+                        >
+                            { props.isEdit ? 'Save' : 'Add' }
+                        </button>
                         <button className='modal__btn'
                             onClick={props.closeModal}
                         >Close</button>
