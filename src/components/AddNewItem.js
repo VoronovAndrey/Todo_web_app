@@ -9,10 +9,13 @@ function AddNewItem(props) {
         }
     }
     return (
-        <div>
-            <input ref={text_ref}></input>
-            <button onClick={() => clickHandle()}>add</button>
-        </div>
+        <div className='todo_item__add__wrapper'>
+            <input className='todo_item__add__input' 
+                    ref={text_ref}
+                    placeholder='Task...' >
+            </input>
+            <button className='todo_item__add__btn' onClick={() => clickHandle()}>add</button>
+        </div> 
     )
 }
 

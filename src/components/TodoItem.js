@@ -4,8 +4,16 @@ function TodoItem(props) {
     
     return (
         <div className='todo_item__wrap'>
-            <input type={'checkbox'} readOnly checked={props.value} onClick={() => props.checkHandle()}/>
-            <p style={{textDecoration: props.value ? 'line-through' : 'none'}}>{props.text}</p>
+            <div className='df aic'>
+                <span className={`checkbox__span ${props.value ? 'checkbox__span__checked' : ''}`}
+                    onClick={() => props.checkHandle()}
+                ></span>
+                {/* <input type={'checkbox'} readOnly checked={props.value} onClick={() => props.checkHandle()}/> */}
+                <p style={{
+                    textDecoration: props.value ? 'line-through' : 'none',
+                    opacity: props.value ? '0.5' : '1'
+                    }}>{props.text}</p>
+            </div>
             <span className='todo_item__remove_btn'
                     onClick={() => props.removeHandle()}
             >

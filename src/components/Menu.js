@@ -26,7 +26,7 @@ function Menu(props) {
                     <span className='menu__item__span'>
                         <i className="fas fa-list-ul"></i>
                     </span>
-                    Projects
+                    Lists
                     <span style={arrow_style}
                             onClick={(e) => {
                                 e.stopPropagation()

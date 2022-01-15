@@ -8,17 +8,25 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    background: #ededed;
+    /* background: #ededed; */
 }
 
 .todo_item__wrap {
     display: flex;
     align-items: center;
-
+    background: #fff;
+    padding: 5px;
+    margin-top: 5px;
+    border: 1px solid rgba(0,0,0, 0.3);
+    justify-content: space-between;
+    width: 100%;
+    border-radius: 3px;
+    /* max-width: 600px; */
 }
 
 .todo_item__wrap p {
     margin-left: 5px;
+    transition: all 0.2s ease-in-out;
 }
 
 .todo_item__remove_btn {
@@ -31,6 +39,11 @@ body {
 .app__container {
     display: flex;
     height: 100vh;
+    width: 100%;
+    /* max-width: 1440px; */
+    background: #ededed;
+    margin: 0 auto;
+
 }
 .menu__container {
     padding: 30px 0;
@@ -246,4 +259,77 @@ body {
 }
 .btn__create_new_list:hover {
     border-bottom: 2px dashed #5533fd79;
+}
+
+/*  */
+.checkbox__span {
+    position: relative;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    display: inline-block;
+    border-radius: 100%;
+    flex-shrink: 0;
+    border: 2px solid rgba(0,0,0, 0.4);
+    transition: all 0.2s ease-in-out;
+    cursor: pointer;
+}
+.checkbox__span__checked::after {
+    content: ' ';
+    display: inline-block;
+    width: 2px;
+    height: 8px;
+    border-radius: 0px;
+    transform: rotate(45deg);
+    position: absolute;
+    bottom: 2px;
+    left: 4px;
+    border: 1px solid;
+    border-color: transparent #fff #fff transparent;
+}
+.checkbox__span__checked {
+    background: #00C7AD;
+    border-color: #00C7AD;
+}
+.todo_item__add__wrapper {
+    display: flex;
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+.todo_item__add__input {
+    /* width: 100%; */
+    max-width: 400px;
+    flex: 2;
+    padding: 6px 9px;
+    border-radius: 3px;
+    /* margin-top: 30px; */
+    border: 1px solid;
+    border-color: rgba(0, 0, 0, 0.5);
+}
+.todo_item__add__btn {
+    padding: 7px 15px;
+    margin-left: 5px;
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    color: #fff;
+    background: #5433FE;
+}
+
+.btn__back {
+    border: none;
+    outline: none;
+    font-size: 14px;
+    color: #5433FD;
+    font-weight: 300;
+    cursor: pointer;
+    border-bottom: 2px dashed transparent;
+}
+.btn__back:hover {
+    border-bottom: 2px dashed #5533fd79;
+}
+
+.h3__list__title { 
+    margin: 30px 0 15px;
 }

@@ -31,8 +31,7 @@ function TodoList(props) {
       // console.log(data);
    }, [data])
    React.useEffect(() => {
-      if (!data) setData(props.data)
-      console.log('data comp', props.data);
+      if (!data) setData(props.data.listData)
    }, [])
 
    if (!data) {
@@ -40,7 +39,11 @@ function TodoList(props) {
    } 
   return (
     <div>
-       <button onClick={()=> props.back()}>← Back</button>
+       <button onClick={()=> props.back()}
+         className='btn__back'
+       >← Back</button>
+
+       <h3 className='h3__list__title'>{props.data.name}</h3>
 
        <AddNewItem addHandle={addHandle}/>
 

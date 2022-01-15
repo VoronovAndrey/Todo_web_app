@@ -145,7 +145,7 @@ function App() {
             )}
             {(mainPage === false) && (CurrentListIndex !== null) && (
                <>
-                  <TodoList data={data[CurrentListIndex].listData}
+                  <TodoList data={data[CurrentListIndex]}
                      back={() => {
                         setCurrentListIndex(null)
                         setMainPage(true)
