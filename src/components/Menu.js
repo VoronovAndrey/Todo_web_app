@@ -1,6 +1,8 @@
 import React from 'react'
 import { StoreManager } from '../context/Context'
 
+
+
 function Menu(props) {
     const { data: { data } } = React.useContext(StoreManager)
     const [isOpen, setIsOpen] = React.useState(true);
@@ -15,6 +17,14 @@ function Menu(props) {
         visibility:  menuIsOpen ? 'visible': 'hidden'
     }
 
+    const Notification = ({text}) => {
+        return (
+            <div className='notfication'>
+                <p>{text}</p>
+            </div>
+        )
+    }
+
     const [ScreenWidth, setScreenWidth] = React.useState()
     React.useEffect(() => {
         const getScreenWidth = () => setScreenWidth(window.innerWidth)
@@ -26,11 +36,12 @@ function Menu(props) {
     }, [])
     return (
         <>  
+        {/* <Notification text={'adsasd'}/> */}
             <span className='burger_btn' onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <i className={ menuIsOpen ? "fas fa-times" : "fas fa-bars"}></i>
                 {/* <i class="fas fa-times"></i> */}
             </span>
-            {menuIsOpen && (
+            {menuIsOpen && (ScreenWidth <= 768) && (
                 <div className='overlay' onClick={() => setMenuIsOpen(false)}></div>
             )}
             <div className='menu__container' style={ScreenWidth > 768 ? {} : burgerMenuStyle}>
@@ -69,14 +80,29 @@ function Menu(props) {
                             </li>
                             {
                                 data.map((list, index) => {
-                                    return <li key={index}
-                                        onClick={() => props.click(index)}
-                                        className='menu__item'
-                                    >
-                                        <span className='circle submenu__span'
-                                            style={{ background: list.color }}></span>
-                                        {list.name}
-                                    </li>
+                                    if (index <=4) {
+                                        return <li key={index}
+                                            onClick={() => props.click(index)}
+                                            className='menu__item'
+                                        >
+                                            <span className='circle submenu__span'
+                                                style={{ background: list.color }}></span>
+                                            {list.name}
+                                        </li>
+                                    } else if (index === 5) {
+                                        return <li key={index}
+                                            onClick={() => props.click(null)}
+                                            className='menu__item'
+                                        >
+                                            <span className=' submenu__span'
+                                                style={{ background: 'transparent' }}>
+                                                    <i className="fas fa-angle-right"></i>
+                                                </span>
+                                            All lists
+                                        </li>
+                                    } else {
+                                        return null
+                                    }
                                 })}
                         </ul>
                     )}

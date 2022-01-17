@@ -21,7 +21,8 @@ body {
     justify-content: space-between;
     width: 100%;
     border-radius: 3px;
-    /* max-width: 600px; */
+    max-width: 700px;
+    font-size: 15px;
 }
 
 .todo_item__wrap p {
@@ -32,6 +33,8 @@ body {
 .todo_item__remove_btn {
     margin-left: 10px;
     display: none;
+    cursor: pointer;
+    
 }
 .todo_item__wrap:hover > .todo_item__remove_btn{
     display: inline-block;
@@ -220,6 +223,9 @@ body {
 .list__item__wrapper:hover {
     box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 25%);
 }
+.list__item__wrapper:hover .bookmark {
+    height: 25px;
+}
 
 .list__item__control {
     position: absolute;
@@ -246,6 +252,7 @@ body {
     left: 5px;
     width: 20px;
     height: 20px;
+    transition: all 0.2s ease-in-out;
 }
 .bookmark::after {
     content: ' ';
@@ -265,6 +272,15 @@ body {
     align-items: center;
     flex-wrap: wrap;
     margin-top: 20px;
+}
+
+.list_progress {
+    position: absolute;
+    font-size: 12px;
+    font-weight: 300;
+    bottom: 10px;
+    right: 10px;
+    opacity: 0.6;
 }
 .btn__create_new_list {
     border: none;
@@ -378,4 +394,21 @@ body {
     .burger_btn {
         display: block;
     }
+    .todo_item__remove_btn {
+        display: inline-block;
+    }
+}
+
+
+.notfication {
+    position: absolute;
+    background: rgb(61, 167, 162);
+    width: 200px;
+    height: 75px;
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    top: 20px;
+    right: 20px;
+    z-index: 1111111;
 }

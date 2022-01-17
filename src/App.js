@@ -117,7 +117,6 @@ function App() {
             }
 
 
-            {/* <TodoList data={data} /> */}
             {mainPage && (
                <>
                   <div>

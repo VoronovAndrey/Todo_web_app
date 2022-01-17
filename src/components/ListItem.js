@@ -1,6 +1,19 @@
 import React from 'react'
 
 function ListItem(props) {
+    const getProgress = () => {
+        let listData = props.data.listData
+        if ( listData.length > 0) {
+            let completedCount = listData.filter(item => item.value === true).length
+            let progress = 0
+            if ( completedCount > 0) progress = ( completedCount/listData.length ) * 100
+            // console.log('prog', progress.toFixed(0));
+            return `${progress.toFixed(0)}%`
+        } else {
+            // console.log('prog no task in list');
+            return ''
+        }
+    }
     return (
         <div className='list__item__wrapper' onClick={() => props.click()}>
             <div className='list__item__control' onClick={e => e.stopPropagation()}>
@@ -17,6 +30,9 @@ function ListItem(props) {
             >
             </span>
             <p className='list__item__title'>{props.data.name}</p>
+            <span className='list_progress'>
+                {props.data.listData.length > 0 ? `Completed: ${getProgress()}` : 'Empty list' }
+            </span>
         </div>
     )
 }
