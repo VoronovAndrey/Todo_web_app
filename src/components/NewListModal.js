@@ -48,7 +48,7 @@ function NewListModal(props) {
                                             style={{
                                                 background: color,
                                                 border: `3px solid ${
-                                                    idx === currentColor ? 'rgba(255, 255, 255, 0.5)' : 'transparent'
+                                                    idx === currentColor ? 'rgba(0, 0, 0, 0.3)' : 'transparent'
                                                 }`
                                             }}
                             ></span>

@@ -6,9 +6,15 @@ import { StoreManager } from './context/Context';
 import './style.css'
 import TodoList from './TodoList';
 
+import Img from './images/13-ai.png'
+import Filter from './components/Filter';
+
 
 function App() {
    const { data: { data, updDataHandler } } = React.useContext(StoreManager)
+   const { colors: { colors } } = React.useContext(StoreManager)
+   const [colorFilter, setColorFilter] = React.useState(null)
+   const [filtredData, setFiltredData] = React.useState(null)
 
    const [showModal, setShowModal] = React.useState(false)  
 
@@ -21,6 +27,7 @@ function App() {
             listData: []
          }
          updDataHandler([...data, new_item])
+         setMessage('List created!')
          // listName_ref.current.value = ''
       } else {
          window.alert('Name is empty')
@@ -41,6 +48,7 @@ function App() {
          let tmp_data = [...data]
          tmp_data[idx] = tmp[0]
          updDataHandler(tmp_data)
+         setMessage('List changed!')
       } else {
          window.alert('Name is empty')
       }
@@ -60,12 +68,32 @@ function App() {
       updDataHandler([...tmp])
    }
 
-   // const [editModal, setEditModal] = React.useState(false)
    const [editIndex, setEditIndex] = React.useState(null)
-   // const editClickHandler = (index) => {
-      
-   // }
 
+   const [message, setMessage] = React.useState('')
+   const [visibility, setVisibility] = React.useState(false)
+
+   React.useEffect(() => {
+      if (message !== '') {
+         setVisibility(true)
+         setTimeout(() => {
+            setVisibility(false)
+            setTimeout(() => {
+               setMessage('')
+            }, 200);
+         }, 1000);
+      }
+   }, [message])
+
+   // colorFilter
+   React.useEffect(() => {
+      // setFiltredData
+      if ( colorFilter === null ) return setFiltredData(null)
+      if ( colorFilter !== null) {
+         let filtred = data.filter(item => item.color === colorFilter)
+         setFiltredData(filtred)
+      }
+   }, [colorFilter, data])
 
 
    React.useEffect(() => {
@@ -76,23 +104,33 @@ function App() {
    }, [CurrentListIndex])
 
 
+
+   const indexOfId = (id) => {
+      let index = data.findIndex(item => item.id === id)
+      console.log('indexOfId',index);
+      return index
+   }
+
+
    if (!data) {
       return <p>Loading</p>
    }
    return (
       <div className="app__container">
+         <Notification text={message} visibility={visibility} />
+
          <Menu click={(index) => {
-                           if ( index  !== CurrentListIndex ) {
-                              if (index !== null) {
-                                 setCurrentListIndex(null)
-                                 setTimeout(() => {
-                                    setCurrentListIndex(index)
-                                 }, 10);
-                                 setMainPage(false)
-                              } else {
-                                 setCurrentListIndex(null)
-                                 setMainPage(true)
-                              }
+                           if ( (index !== null) && (index  !== CurrentListIndex) ) {
+                              setCurrentListIndex(null)
+                              setTimeout(() => {
+                                 setCurrentListIndex(index)
+                              }, 10);
+                              setMainPage(false)
+                           } 
+                           if (index === null) {
+                              setCurrentListIndex(null)
+                              setMainPage(true)
+                              setColorFilter(null)
                            }
                         }}
                addClick={() => setShowModal(true)}
@@ -119,6 +157,7 @@ function App() {
 
             {mainPage && (
                <>
+
                   <div>
                      {/* <input ref={listName_ref} placeholder='Name'></input> */}
                      <button onClick={() => setShowModal(true)}
@@ -128,18 +167,42 @@ function App() {
                            <i className="fas fa-plus"></i>
                         </span> Create new list</button>
                   </div>
+                  {/* filter */}
+                  <Filter colorFilter={colorFilter} setColorFilter={setColorFilter} />
+                  {/*  */}
                   <div className='list__main__container'>
-                     {data.map((list, index) => {
-                        return <ListItem data={list} key={index}
-                           click={() => {
-                              setCurrentListIndex(index)
-                              setMainPage(false)
-                           }} 
-                           deletClick={() => deleteClickHandler(index)}
-                           editClick={() => setEditIndex(index)}
+                     {filtredData === null && (
+                        data.map((list, index) => {
+                           return <ListItem data={list} key={index}
+                              click={() => {
+                                 setCurrentListIndex(index)
+                                 setMainPage(false)
+                              }} 
+                              deletClick={() => deleteClickHandler(index)}
+                              editClick={() => setEditIndex(index)}
+                              />
+                        })
+                     )}
+                     {filtredData !== null && (
+                        filtredData.map((list, index) => {
+                           return <ListItem data={list} key={index}
+                              click={() => {
+                                 setCurrentListIndex( indexOfId(list.id) )
+                                 setMainPage(false)
+                                 
+                              }}
+                              deletClick={() => deleteClickHandler( indexOfId(list.id) )}
+                              editClick={() => setEditIndex( indexOfId(list.id) )}
                            />
-                     })}
+                        })
+                     )}
                   </div>
+                  {data.length === 0 && (
+                     <div className='image__container'>
+                        <p>Create your first list!</p>
+                        <img src={Img} alt='' className='image'></img>
+                     </div>
+                  )}
                </>
             )}
             {(mainPage === false) && (CurrentListIndex !== null) && (
@@ -159,6 +222,18 @@ function App() {
          </div>
       </div>
    );
+}
+
+
+const Notification = ({text, visibility}) => {
+   return (
+       <div className='notfication' style={{
+          right: visibility ? '20px' : '-250px',
+          visibility: visibility ? 'visible' : 'hidden'
+       }}>
+           <p>{text}</p>
+       </div>
+   )
 }
 
 export default App;

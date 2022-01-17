@@ -17,13 +17,7 @@ function Menu(props) {
         visibility:  menuIsOpen ? 'visible': 'hidden'
     }
 
-    const Notification = ({text}) => {
-        return (
-            <div className='notfication'>
-                <p>{text}</p>
-            </div>
-        )
-    }
+
 
     const [ScreenWidth, setScreenWidth] = React.useState()
     React.useEffect(() => {
@@ -36,7 +30,6 @@ function Menu(props) {
     }, [])
     return (
         <>  
-        {/* <Notification text={'adsasd'}/> */}
             <span className='burger_btn' onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <i className={ menuIsOpen ? "fas fa-times" : "fas fa-bars"}></i>
                 {/* <i class="fas fa-times"></i> */}

@@ -401,8 +401,11 @@ body {
 
 
 .notfication {
-    position: absolute;
-    background: rgb(61, 167, 162);
+    position: fixed;
+    background: rgb(1 194 170);
+    border-radius: 5px;
+    color: #fff;
+    box-shadow: 2px 2px 5px 0px rgb(0 0 0 / 25%);
     width: 200px;
     height: 75px;
     display: flex;
@@ -411,4 +414,25 @@ body {
     top: 20px;
     right: 20px;
     z-index: 1111111;
+    transition: all 0.2s ease-in-out;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    max-width: 300px;
+}
+.image__container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin-top: 35px;
+}
+.image__container p {
+    font-size: 16px;
+    font-weight: 600;
+    opacity: 0.4;
 }
