@@ -33,7 +33,12 @@ function NewListModal(props) {
                     <h2 style={{textAlign: 'center'}}>
                         {props.isEdit ? 'Edit' : 'New'} list
                     </h2>
-                    <input ref={listName_ref} placeholder='Title' className='modal__input'></input>
+                    <input 
+                        ref={listName_ref} 
+                        placeholder='Title' 
+                        className='modal__input'
+                        maxLength={30}
+                        ></input>
                     <div className='df aic colors__container'>
                         <span>Color:</span>
                         {colors.map((color, idx) => {
