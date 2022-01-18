@@ -8,7 +8,6 @@
 
 body {
     font-family: "Roboto", sans-serif;
-    /* background: #ededed; */
 }
 
 .todo_item__wrap {
@@ -41,9 +40,7 @@ body {
 }
 .app__container {
     display: flex;
-    /* height: 100vh; */
     width: 100%;
-    /* max-width: 1440px; */
     background: #ededed;
     margin: 0 auto;
 
@@ -52,7 +49,6 @@ body {
     visibility: visible;
     padding: 30px 0;
     width: 250px;
-    /* height: 100%; */
     background: linear-gradient(183.89deg, #5433FE 0%, #30206E 102.01%);
 }
 .main_layout__container {
@@ -70,7 +66,6 @@ body {
     font-size: 24px;
 
 }
-/* #00C7AD */
 .Logo span {
     color: #00C7AD;
     margin-right: 5px;
@@ -119,7 +114,6 @@ body {
     width: 8px;
     height: 8px;
     border-radius: 100%;
-    /* background: #00C7AD; */
     display: inline-block;
     flex-shrink: 0;
     flex-grow: 0;
@@ -130,7 +124,6 @@ body {
 }
 .menu__item__arrow {
     margin-left: auto;
-    /* transform: rotate(180deg); */
 }
 .df {
     display: flex;
@@ -149,12 +142,8 @@ body {
     margin: 0 auto;
     padding: 10px;
     transition: all 0.2s ease-in-out;
-    /* display: flex;
-    align-items: center; */
-
 }
 .modal__body {
-    /* position: absolute; */
     margin: 40px auto 0;
     width: 100%;
     max-width: 400px;
@@ -271,7 +260,7 @@ body {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    margin-top: 20px;
+    margin-top: 15px;
 }
 
 .list_progress {
@@ -294,7 +283,6 @@ body {
     border-bottom: 2px dashed #5533fd79;
 }
 
-/*  */
 .checkbox__span {
     position: relative;
     width: 15px;
@@ -330,12 +318,10 @@ body {
     margin-bottom: 10px;
 }
 .todo_item__add__input {
-    /* width: 100%; */
     max-width: 400px;
     flex: 2;
     padding: 6px 9px;
     border-radius: 3px;
-    /* margin-top: 30px; */
     border: 1px solid;
     border-color: rgba(0, 0, 0, 0.5);
 }
@@ -377,28 +363,7 @@ body {
     z-index: 11111;
     display: none;
     cursor: pointer;
-    /* transition: all 0.5s ease-in-out; */
 }
-@media screen and (max-width: 768px) {
-    .list__item__control {
-        display: block;
-    }
-    .menu__container {
-        position: fixed;
-        top: 0;
-        height: 100vh;
-        z-index: 1000;
-        transition: all 0.2s ease-in-out;
-        overflow: hidden;
-    }
-    .burger_btn {
-        display: block;
-    }
-    .todo_item__remove_btn {
-        display: inline-block;
-    }
-}
-
 
 .notfication {
     position: fixed;
@@ -436,3 +401,52 @@ body {
     font-weight: 600;
     opacity: 0.4;
 }
+
+.filter__container {
+    margin-top: 30px;
+    padding: 10px 20px;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    background: #fff;
+    border-radius: 5px;
+}
+
+.filter__span {
+    cursor: pointer;
+    opacity: 0.4;
+    color: #000;
+    margin-left: 10px;
+    border-bottom: 1px solid transparent;
+}
+.filter__span__active {
+    opacity: 1;
+    color: #5433FD;
+    border-bottom: 1px dashed #5433FD;
+}
+
+.input__warning {
+    border-color: red;
+    background: rgba(219, 104, 104, 0.11);
+}
+
+@media screen and (max-width: 768px) {
+    .list__item__control {
+        display: block;
+    }
+    .menu__container {
+        position: fixed;
+        top: 0;
+        height: 100vh;
+        z-index: 1000;
+        transition: all 0.2s ease-in-out;
+        overflow: hidden;
+    }
+    .burger_btn {
+        display: block;
+    }
+    .todo_item__remove_btn {
+        display: inline-block;
+    }
+}
+

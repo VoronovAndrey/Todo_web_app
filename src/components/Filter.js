@@ -4,11 +4,12 @@ import { StoreManager } from '../context/Context'
 function Filter({colorFilter, setColorFilter}) {
     const {colors: {colors}} = React.useContext(StoreManager)
     return (
-        <div>
+        <div className='filter__container'>
             {colors.map((item, idx) => {
                 return (
                     <span className='circle__modal'
                         style={{
+                            marginLeft: idx === 0 ? '0' : '10px',
                             background: item,
                             border: `3px solid ${item === colorFilter ? 'rgba(0, 0, 0, 0.3)' : 'transparent'
                                 }`
@@ -18,10 +19,7 @@ function Filter({colorFilter, setColorFilter}) {
                     ></span>
                 )
             })}
-            <span className=''
-                style={{
-                    opacity: colorFilter === null ? '1' : '0.4'
-                }}
+            <span className={`filter__span ${colorFilter === null ? 'filter__span__active' : ''}`}
                 onClick={() => setColorFilter(null)}
             >All</span>
         </div>

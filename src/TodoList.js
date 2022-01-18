@@ -28,7 +28,6 @@ function TodoList(props) {
    }
    React.useEffect(() => {
       if (data) props.setDataHandler(data, props.dataIndex)
-      // console.log(data);
    }, [data])
    React.useEffect(() => {
       if (!data) setData(props.data.listData)

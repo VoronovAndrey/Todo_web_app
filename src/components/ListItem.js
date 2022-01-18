@@ -7,10 +7,8 @@ function ListItem(props) {
             let completedCount = listData.filter(item => item.value === true).length
             let progress = 0
             if ( completedCount > 0) progress = ( completedCount/listData.length ) * 100
-            // console.log('prog', progress.toFixed(0));
             return `${progress.toFixed(0)}%`
         } else {
-            // console.log('prog no task in list');
             return ''
         }
     }
@@ -22,7 +20,6 @@ function ListItem(props) {
                 </span>
                 <span style={{marginLeft: '7px'}} onClick={props.deletClick}>
                     <i className="fas fa-trash-alt"></i>
-                    {/* <i className="far fa-trash-alt"></i> */}
                 </span>
             </div>
             <span className='bookmark'

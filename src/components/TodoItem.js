@@ -8,7 +8,6 @@ function TodoItem(props) {
                 <span className={`checkbox__span ${props.value ? 'checkbox__span__checked' : ''}`}
                     onClick={() => props.checkHandle()}
                 ></span>
-                {/* <input type={'checkbox'} readOnly checked={props.value} onClick={() => props.checkHandle()}/> */}
                 <p style={{
                     textDecoration: props.value ? 'line-through' : 'none',
                     opacity: props.value ? '0.5' : '1'

@@ -5,7 +5,7 @@ export const StoreManager = React.createContext()
 
 export const StoreProvider = ({children}) => {
    const [data, setData] = React.useState(null);
-   const colors = ['#01C7AE', '#F34B34', '#E6C618', '#EDE6E6']
+   const colors = ['#01C7AE', '#F34B34', '#E6C618', '#dfc9c9']
 
      const getData = () => {
          let storage = window.localStorage.getItem('store')
@@ -13,36 +13,51 @@ export const StoreProvider = ({children}) => {
              let _tmp = [
                 {
                    id: 21341412,
-                   name: 'List1',
+                   name: 'Start',
                    color: '#01C7AE',
                    listData: [
                       {
                          id: 1,
-                         text: '1asdsasf afgaads',
-                         value: false
+                         text: 'Create list',
+                         value: true
                       },
                       {
                          id: 2,
-                         text: '2asdsasf afgaads',
+                         text: 'Add some tasks',
                          value: true
                       },
                       {
                          id: 3,
-                         text: '3asdsasf afgaads',
+                         text: 'Add more tasks',
                          value: false
                       },
                    ]
                 },
                 {
                    id: 21341415,
-                   name: 'List2',
-                   color: '#01C7AE',
+                   name: 'Shopping',
+                   color: '#E6C618',
                    listData: [
                       {
                          id: 4,
-                         text: '4asdsasf afgaads',
+                         text: 'potato',
                          value: false
-                      }
+                      },
+                      {
+                        id: 5,
+                        text: 'tomato',
+                        value: false
+                     },
+                     {
+                        id: 6,
+                        text: 'meat',
+                        value: false
+                     },
+                     {
+                        id: 7,
+                        text: 'snacks',
+                        value: false
+                     },
                    ]
                 }
                 

@@ -15,11 +15,15 @@ function NewListModal(props) {
             }
             listName_ref.current.value = ''
             props.closeModal()
-        }
+        } else {
+            listName_ref.current.classList.add('input__warning')
+            setTimeout(() => {
+                listName_ref.current.classList.remove('input__warning')
+            }, 500);
+         }
    }
    React.useEffect(()=>{
     listName_ref.current.value = props.isEdit ? props.editData.name : '' ;
-    // props.editData.color
     if (props.isEdit) {
         let cur_color = colors.indexOf(props.editData.color)
         setCurrentColor(cur_color)
@@ -55,7 +59,6 @@ function NewListModal(props) {
                         })}
 
                     </div>
-                     {/* onClick={addNewList} */}
                      <div className='modal__btn__container df aic'>
                         <button 
                             className='modal__btn modal__btn_add' 

@@ -12,11 +12,18 @@ import Filter from './components/Filter';
 
 function App() {
    const { data: { data, updDataHandler } } = React.useContext(StoreManager)
-   const { colors: { colors } } = React.useContext(StoreManager)
    const [colorFilter, setColorFilter] = React.useState(null)
    const [filtredData, setFiltredData] = React.useState(null)
 
    const [showModal, setShowModal] = React.useState(false)  
+
+   const [mainPage, setMainPage] = React.useState(true)
+   const [CurrentListIndex, setCurrentListIndex] = React.useState(null)
+
+   const [editIndex, setEditIndex] = React.useState(null)
+
+   const [message, setMessage] = React.useState('')
+   const [visibility, setVisibility] = React.useState(false)
 
    const addNewList = (title, color) => {
       if (title !== '') {
@@ -28,11 +35,9 @@ function App() {
          }
          updDataHandler([...data, new_item])
          setMessage('List created!')
-         // listName_ref.current.value = ''
-      } else {
-         window.alert('Name is empty')
-      }
+      } 
    }
+
    const changeList = ( title, color, listId) => {
       if (title !== '') {
          let tmp = []
@@ -49,12 +54,8 @@ function App() {
          tmp_data[idx] = tmp[0]
          updDataHandler(tmp_data)
          setMessage('List changed!')
-      } else {
-         window.alert('Name is empty')
       }
    }
-   const [mainPage, setMainPage] = React.useState(true)
-   const [CurrentListIndex, setCurrentListIndex] = React.useState(null)
 
    const setDataHandler = (new_data, idx) => {
       let tmp = [...data]
@@ -68,10 +69,11 @@ function App() {
       updDataHandler([...tmp])
    }
 
-   const [editIndex, setEditIndex] = React.useState(null)
-
-   const [message, setMessage] = React.useState('')
-   const [visibility, setVisibility] = React.useState(false)
+   const indexOfId = (id) => {
+      let index = data.findIndex(item => item.id === id)
+      console.log('indexOfId',index);
+      return index
+   }
 
    React.useEffect(() => {
       if (message !== '') {
@@ -85,32 +87,13 @@ function App() {
       }
    }, [message])
 
-   // colorFilter
    React.useEffect(() => {
-      // setFiltredData
       if ( colorFilter === null ) return setFiltredData(null)
       if ( colorFilter !== null) {
          let filtred = data.filter(item => item.color === colorFilter)
          setFiltredData(filtred)
       }
    }, [colorFilter, data])
-
-
-   React.useEffect(() => {
-      console.log(data);
-   }, [data])
-   React.useEffect(() => {
-      console.log('CurrentListIndex', CurrentListIndex);
-   }, [CurrentListIndex])
-
-
-
-   const indexOfId = (id) => {
-      let index = data.findIndex(item => item.id === id)
-      console.log('indexOfId',index);
-      return index
-   }
-
 
    if (!data) {
       return <p>Loading</p>
@@ -119,7 +102,8 @@ function App() {
       <div className="app__container">
          <Notification text={message} visibility={visibility} />
 
-         <Menu click={(index) => {
+         <Menu addClick={() => setShowModal(true)} 
+            click={(index) => {
                            if ( (index !== null) && (index  !== CurrentListIndex) ) {
                               setCurrentListIndex(null)
                               setTimeout(() => {
@@ -128,13 +112,11 @@ function App() {
                               setMainPage(false)
                            } 
                            if (index === null) {
-                              setCurrentListIndex(null)
+                              setCurrentListIndex(null) 
                               setMainPage(true)
                               setColorFilter(null)
                            }
-                        }}
-               addClick={() => setShowModal(true)}
-                        />
+                        }}/>
          <div className='main_layout__container'>
             {showModal && (
                <NewListModal
@@ -154,12 +136,10 @@ function App() {
                )
             }
 
-
+            {/* mainPage = true -> show filters and all lists */}
             {mainPage && (
                <>
-
                   <div>
-                     {/* <input ref={listName_ref} placeholder='Name'></input> */}
                      <button onClick={() => setShowModal(true)}
                         className='btn__create_new_list'
                      >
@@ -167,9 +147,9 @@ function App() {
                            <i className="fas fa-plus"></i>
                         </span> Create new list</button>
                   </div>
-                  {/* filter */}
+
                   <Filter colorFilter={colorFilter} setColorFilter={setColorFilter} />
-                  {/*  */}
+                  
                   <div className='list__main__container'>
                      {filtredData === null && (
                         data.map((list, index) => {
@@ -228,7 +208,7 @@ function App() {
 const Notification = ({text, visibility}) => {
    return (
        <div className='notfication' style={{
-          right: visibility ? '20px' : '-250px',
+          right: visibility ? '20px' : '-300px',
           visibility: visibility ? 'visible' : 'hidden'
        }}>
            <p>{text}</p>

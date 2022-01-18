@@ -16,10 +16,8 @@ function Menu(props) {
         left: menuIsOpen ? 0 : '-100%',
         visibility:  menuIsOpen ? 'visible': 'hidden'
     }
-
-
-
     const [ScreenWidth, setScreenWidth] = React.useState()
+
     React.useEffect(() => {
         const getScreenWidth = () => setScreenWidth(window.innerWidth)
         getScreenWidth()
@@ -32,7 +30,6 @@ function Menu(props) {
         <>  
             <span className='burger_btn' onClick={() => setMenuIsOpen(!menuIsOpen)}>
                 <i className={ menuIsOpen ? "fas fa-times" : "fas fa-bars"}></i>
-                {/* <i class="fas fa-times"></i> */}
             </span>
             {menuIsOpen && (ScreenWidth <= 768) && (
                 <div className='overlay' onClick={() => setMenuIsOpen(false)}></div>
@@ -99,14 +96,7 @@ function Menu(props) {
                                 })}
                         </ul>
                     )}
-                    <p className='menu__item df'>
-                        <span className='menu__item__span'>
-                            <i className="fas fa-question"></i>
-                        </span>
-                        About
-                    </p>
                 </div>
-
             </div>
         </>
     )
