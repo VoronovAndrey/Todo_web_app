@@ -4,34 +4,29 @@ import TodoItem from './components/TodoItem';
 import './style.css'
 
 function TodoList(props) {
-   const [data, setData] = React.useState(null);
+   const [data, setData] = React.useState(props.data.listData);
+   const {setDataHandler, dataIndex} = props;
    const checkHandle = (idx) => {
       let tmp = [...data]
       tmp[idx].value = !tmp[idx].value
       setData(tmp)
+      setDataHandler(tmp, dataIndex)
    }
    const removeHandle = (idx) => {
       let tmp = [...data]
-      tmp.splice(idx, 1)
-      
+      tmp.splice(idx, 1)      
       setData(tmp)
+      setDataHandler(tmp, dataIndex)
    }
    const addHandle = (text) => {
       let tmp = {
          id: Date.now(),
          text: text,
          value: false
-      }
-      
-      
+      }      
       setData([...data, tmp])
+      setDataHandler([...data, tmp], dataIndex)
    }
-   React.useEffect(() => {
-      if (data) props.setDataHandler(data, props.dataIndex)
-   }, [data])
-   React.useEffect(() => {
-      if (!data) setData(props.data.listData)
-   }, [])
 
    if (!data) {
       return <p>Loading</p>

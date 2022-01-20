@@ -4,7 +4,7 @@ import { StoreManager } from '../context/Context'
 function NewListModal(props) {
    const listName_ref = React.useRef('')
    const {colors : {colors}} = React.useContext(StoreManager)
-   const [currentColor, setCurrentColor] = React.useState(0)
+   const [currentColor, setCurrentColor] = React.useState( props.isEdit ? colors.indexOf(props.editData.color) : 0)
    const okClickHandler = () => {
         let title = listName_ref.current.value
         if ( title.trim() !== '' ) {
@@ -22,13 +22,6 @@ function NewListModal(props) {
             }, 500);
          }
    }
-   React.useEffect(()=>{
-    listName_ref.current.value = props.isEdit ? props.editData.name : '' ;
-    if (props.isEdit) {
-        let cur_color = colors.indexOf(props.editData.color)
-        setCurrentColor(cur_color)
-    }
-   }, [])
 
     return (
         <>
@@ -42,6 +35,7 @@ function NewListModal(props) {
                         placeholder='Title' 
                         className='modal__input'
                         maxLength={30}
+                        defaultValue={props.isEdit ? props.editData.name : ''}
                         ></input>
                     <div className='df aic colors__container'>
                         <span>Color:</span>
