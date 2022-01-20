@@ -278,6 +278,7 @@ body {
     color: #5433FD;
     cursor: pointer;
     border-bottom: 2px dashed transparent;
+    background: none;
 }
 .btn__create_new_list:hover {
     border-bottom: 2px dashed #5533fd79;
@@ -347,6 +348,7 @@ body {
     font-weight: 300;
     cursor: pointer;
     border-bottom: 2px dashed transparent;
+    background: none;
 }
 .btn__back:hover {
     border-bottom: 2px dashed #5533fd79;
